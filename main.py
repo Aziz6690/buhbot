@@ -1,12 +1,12 @@
 import telebot
 from openai import OpenAI
-
 import os
+
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 bot = telebot.TeleBot(TELEGRAM_TOKEN)
-client = OpenAI(api_key= = OPENAI_API_KEY
+client = OpenAI(api_key=OPENAI_API_KEY)
 
 @bot.message_handler(func=lambda message: True)
 def handle_message(message):
@@ -19,7 +19,7 @@ def handle_message(message):
             ],
             temperature=0.3
         )
-        reply = response.choices[0].message["content"]
+        reply = response.choices[0].message.content
         bot.send_message(message.chat.id, reply)
     except Exception as e:
         bot.send_message(message.chat.id, f"Ошибка: {e}")
