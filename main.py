@@ -1,16 +1,17 @@
 import telebot
-import openai
 import os
+import openai
 
-# Получаем токены из переменных окружения
+# Получаем токены
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
-# Инициализация
-bot = telebot.TeleBot(TELEGRAM_TOKEN)
+# Настройка OpenAI
 openai.api_key = OPENAI_API_KEY
 
-# Обработчик всех сообщений
+# Инициализация Telegram бота
+bot = telebot.TeleBot(TELEGRAM_TOKEN)
+
 @bot.message_handler(func=lambda message: True)
 def handle_message(message):
     try:
@@ -24,8 +25,8 @@ def handle_message(message):
         )
         reply = response.choices[0].message["content"]
         bot.send_message(message.chat.id, reply)
+
     except Exception as e:
         bot.send_message(message.chat.id, f"Ошибка: {e}")
 
-# Запуск бота
 bot.polling()
