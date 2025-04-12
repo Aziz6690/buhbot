@@ -17,7 +17,7 @@ def handle_message(message):
                 {"role": "system", "content": "Ты бухгалтер из Казахстана. Помогаешь считать налоги, расходы, объясняешь термины простыми словами."},
                 {"role": "user", "content": message.text}
             ],
-            temperature=0.3
+            temperature=0.5
         )
         reply = response.choices[0].message.content
         bot.send_message(message.chat.id, reply)
