@@ -1,17 +1,17 @@
 import telebot
-import openai
+from openai import OpenAI
 
 import os
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 bot = telebot.TeleBot(TELEGRAM_TOKEN)
-openai.api_key = OPENAI_API_KEY
+client = OpenAI(api_key= = OPENAI_API_KEY
 
 @bot.message_handler(func=lambda message: True)
 def handle_message(message):
     try:
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model="gpt-4",
             messages=[
                 {"role": "system", "content": "Ты бухгалтер из Казахстана. Помогаешь считать налоги, расходы, объясняешь термины простыми словами."},
